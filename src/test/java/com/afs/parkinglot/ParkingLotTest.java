@@ -70,14 +70,14 @@ public class ParkingLotTest {
         Assertions.assertNotNull(fetchedCar);
         Assertions.assertNull(fetchedCar1);
     }
-//
-//    @Test
-//    public void should_return_null_when_park_given_parking_lot_reach_max_capacity_with_parked_car() {
-//        Car car = new Car("123456");
-//        ParkingLot parkingLot = new ParkingLot();
-//
-//        Ticket ticket = parkingLot.park(car);
-//
-//        Assertions.assertNull(ticket);
-//    }
+
+    @Test
+    public void should_return_null_when_park_given_parking_lot_reach_max_capacity_with_parked_car() {
+        ParkingLot parkingLot = new ParkingLot(0);
+        Car car = new Car("123456");
+
+        Ticket ticket = parkingLot.park(car);
+
+        Assertions.assertNull(ticket);
+    }
 }

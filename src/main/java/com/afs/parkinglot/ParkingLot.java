@@ -15,6 +15,10 @@ public class ParkingLot {
         this.capacity = MAXCAPACITY;
     }
 
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
+    }
+
     public Ticket park(Car car) {
         return IntStream.rangeClosed(1, capacity).boxed()
                 .filter(position -> ticketCarMap.keySet().stream().noneMatch(ticket -> ticket.position() == position))
