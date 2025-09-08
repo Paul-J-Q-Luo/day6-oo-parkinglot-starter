@@ -19,4 +19,13 @@ public class ParkingBoy {
         System.out.println("No available parking lot.");
         return null;
     }
+
+    public Car fetch(Ticket ticket) {
+        if (ticket == null || ticket.getParkingLot() == null) {
+            System.out.println("Unrecognized parking ticket.");
+            return null;
+        }
+        return ticket.getParkingLot().fetch(ticket);
+    }
+
 }

@@ -176,4 +176,17 @@ public class ParkingLotTest {
         assertNotNull(ticket);
         assertEquals(parkingLot2, ticket.getParkingLot());
     }
+
+    @Test
+    void should_fetch_a_car_when_given_a_valid_ticket() {
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(List.of(parkingLot1, parkingLot2));
+        Car car = new Car("123456");
+        Ticket ticket = parkingBoy.park(car);
+
+        Car fetchedCar = parkingBoy.fetch(ticket);
+
+        assertEquals(car, fetchedCar);
+    }
 }
