@@ -15,16 +15,17 @@ public class ParkingLotTest {
         Assertions.assertEquals(expectTicket, ticket);
     }
 
-//    @Test
-//    public void should_return_parked_car_when_fetch_given_parking_lot_with_parked_car_and_ticket() {
-//        Ticket ticket = new Ticket();
-//        ParkingLot parkingLot = new ParkingLot();
-//        Car car = new Car("123456");
-//
-//        Car fetchedCar = parkingLot.fetch(ticket);
-//
-//        Assertions.assertEquals(car, fetchedCar);
-//    }
+    @Test
+    public void should_return_parked_car_when_fetch_given_parking_lot_with_parked_car_and_ticket() {
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car("123456");
+        Ticket ticket = new Ticket(1, car, parkingLot);
+        parkingLot.park(car);
+
+        Car fetchedCar = parkingLot.fetch(ticket);
+
+        Assertions.assertEquals(car, fetchedCar);
+    }
 //
 //    @Test
 //    public void should_return_right_car_when_fetch_given_parking_lot_with_two_parked_car_and_each_ticket() {

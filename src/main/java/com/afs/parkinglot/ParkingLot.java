@@ -26,4 +26,8 @@ public class ParkingLot {
                 })
                 .orElse(null);
     }
+
+    public Car fetch(Ticket ticket) {
+        return ticketCarMap.remove(ticket);
+    }
 }
