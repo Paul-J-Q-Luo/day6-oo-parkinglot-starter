@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public class ParkingLot {
     private int capacity = 10;
     private static final int MAXCAPACITY = 10;
-    private Map<Ticket, Car> ticketCarMap = new HashMap<>();
+    private final Map<Ticket, Car> ticketCarMap = new HashMap<>();
 
     public ParkingLot() {
         this.capacity = MAXCAPACITY;
