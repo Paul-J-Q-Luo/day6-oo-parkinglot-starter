@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ParkingLotTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -63,7 +67,7 @@ public class ParkingLotTest {
 
         Car fetchedCar = parkingLot.fetch(ticket);
 
-        Assertions.assertNull(fetchedCar);
+        assertNull(fetchedCar);
     }
 
     @Test
@@ -76,8 +80,8 @@ public class ParkingLotTest {
         Car fetchedCar = parkingLot.fetch(ticket);
         Car fetchedCar1 = parkingLot.fetch(ticket);
 
-        Assertions.assertNotNull(fetchedCar);
-        Assertions.assertNull(fetchedCar1);
+        assertNotNull(fetchedCar);
+        assertNull(fetchedCar1);
     }
 
     @Test
@@ -89,8 +93,8 @@ public class ParkingLotTest {
         Ticket ticket1 = parkingLot.park(car1);
         Ticket ticket2 = parkingLot.park(car2);
 
-        Assertions.assertNotNull(ticket1);
-        Assertions.assertNull(ticket2);
+        assertNotNull(ticket1);
+        assertNull(ticket2);
     }
 
     /*Given
@@ -107,7 +111,7 @@ public class ParkingLotTest {
 
         Car fetchedCar = parkingLot.fetch(invalidTicket);
 
-        Assertions.assertNull(fetchedCar);
+        assertNull(fetchedCar);
         Assertions.assertTrue(outputStream.toString().contains("Unrecognized parking ticket."));
     }
 
@@ -121,8 +125,8 @@ public class ParkingLotTest {
         Car fetchedCar1 = parkingLot.fetch(invalidTicket);
         Car fetchedCar2 = parkingLot.fetch(invalidTicket);
 
-        Assertions.assertNotNull(fetchedCar1);
-        Assertions.assertNull(fetchedCar2);
+        assertNotNull(fetchedCar1);
+        assertNull(fetchedCar2);
         Assertions.assertTrue(outputStream.toString().contains("Unrecognized parking ticket."));
     }
 
@@ -141,8 +145,22 @@ public class ParkingLotTest {
         Ticket ticket1 = parkingLot.park(car1);
         Ticket ticket2 = parkingLot.park(car2);
 
-        Assertions.assertNotNull(ticket1);
-        Assertions.assertNull(ticket2);
+        assertNotNull(ticket1);
+        assertNull(ticket2);
         Assertions.assertTrue(outputStream.toString().contains("No available position."));
+    }
+
+    @Test
+    void should_park_a_car_to_the_first_parking_lot_when_the_first_parking_lot_is_not_full() {
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(List.of(parkingLot1, parkingLot2));
+        Car car = new Car("123456");
+
+        Ticket ticket = parkingBoy.park(car);
+
+        assertNotNull(ticket);
+        assertNotNull(parkingLot1.fetch(ticket));
+        assertNull(parkingLot2.fetch(ticket));
     }
 }
