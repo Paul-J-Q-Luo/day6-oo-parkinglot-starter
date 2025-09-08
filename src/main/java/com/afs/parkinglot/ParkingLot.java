@@ -26,10 +26,17 @@ public class ParkingLot {
                     ticketCarMap.put(ticket, car);
                     return ticket;
                 })
-                .orElse(null);
+                .orElseGet(() -> {
+                    System.out.println("No available position.");
+                    return null;
+                });
     }
 
     public Car fetch(Ticket ticket) {
+        if (!ticketCarMap.containsKey(ticket)) {
+            System.out.println("Unrecognized parking ticket.");
+            return null;
+        }
         return ticketCarMap.remove(ticket);
     }
 }
