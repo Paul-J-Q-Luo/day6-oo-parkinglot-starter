@@ -32,10 +32,8 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         Car car1 = new Car("123456");
         Car car2 = new Car("234567");
-        Ticket ticket1 = new Ticket(1, car1, parkingLot);
-        parkingLot.park(car1);
-        Ticket ticket2 = new Ticket(2, car2, parkingLot);
-        parkingLot.park(car2);
+        Ticket ticket1 = parkingLot.park(car1);
+        Ticket ticket2 = parkingLot.park(car2);
 
         Car fetchedCar1 = parkingLot.fetch(ticket1);
         Car fetchedCar2 = parkingLot.fetch(ticket2);
@@ -73,11 +71,14 @@ public class ParkingLotTest {
 
     @Test
     public void should_return_null_when_park_given_parking_lot_reach_max_capacity_with_parked_car() {
-        ParkingLot parkingLot = new ParkingLot(0);
-        Car car = new Car("123456");
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car1 = new Car("123456");
+        Car car2 = new Car("234567");
 
-        Ticket ticket = parkingLot.park(car);
+        Ticket ticket1 = parkingLot.park(car1);
+        Ticket ticket2 = parkingLot.park(car2);
 
-        Assertions.assertNull(ticket);
+        Assertions.assertNotNull(ticket1);
+        Assertions.assertNull(ticket2);
     }
 }
