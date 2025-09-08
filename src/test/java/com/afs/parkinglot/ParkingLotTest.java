@@ -56,17 +56,20 @@ public class ParkingLotTest {
 
         Assertions.assertNull(fetchedCar);
     }
-//
-//    @Test
-//    public void should_return_null_when_fetch_given_parking_lot_with_parked_car_and_ticket_is_used() {
-//        Ticket ticket = new Ticket();
-//        ticket.setUsed(true);
-//        ParkingLot parkingLot = new ParkingLot();
-//
-//        Car fetchedCar = parkingLot.fetch(ticket);
-//
-//        Assertions.assertNull(fetchedCar);
-//    }
+
+    @Test
+    public void should_return_null_when_fetch_given_parking_lot_with_parked_car_and_ticket_is_used() {
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car("123456");
+        parkingLot.park(car);
+        Ticket ticket = new Ticket(1, car, parkingLot);
+
+        Car fetchedCar = parkingLot.fetch(ticket);
+        Car fetchedCar1 = parkingLot.fetch(ticket);
+
+        Assertions.assertNotNull(fetchedCar);
+        Assertions.assertNull(fetchedCar1);
+    }
 //
 //    @Test
 //    public void should_return_null_when_park_given_parking_lot_reach_max_capacity_with_parked_car() {
