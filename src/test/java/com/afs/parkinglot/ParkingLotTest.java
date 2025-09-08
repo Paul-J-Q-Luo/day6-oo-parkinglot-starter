@@ -26,27 +26,33 @@ public class ParkingLotTest {
 
         Assertions.assertEquals(car, fetchedCar);
     }
-//
-//    @Test
-//    public void should_return_right_car_when_fetch_given_parking_lot_with_two_parked_car_and_each_ticket() {
-//        Ticket ticket1 = new Ticket();
-//        Ticket ticket2 = new Ticket();
-//        ParkingLot parkingLot = new ParkingLot();
-//        Car car1 = new Car("123456");
-//        Car car2 = new Car("234567");
-//
-//        Car fetchedCar1 = parkingLot.fetch(ticket1);
-//        Car fetchedCar2 = parkingLot.fetch(ticket2);
-//
-//        Assertions.assertEquals(car1, fetchedCar1);
-//        Assertions.assertEquals(car2, fetchedCar2);
-//    }
+
+    @Test
+    public void should_return_right_car_when_fetch_given_parking_lot_with_two_parked_car_and_each_ticket() {
+        ParkingLot parkingLot = new ParkingLot();
+        Car car1 = new Car("123456");
+        Car car2 = new Car("234567");
+        Ticket ticket1 = new Ticket(1, car1, parkingLot);
+        parkingLot.park(car1);
+        Ticket ticket2 = new Ticket(2, car2, parkingLot);
+        parkingLot.park(car2);
+
+        Car fetchedCar1 = parkingLot.fetch(ticket1);
+        Car fetchedCar2 = parkingLot.fetch(ticket2);
+
+        Assertions.assertEquals(car1, fetchedCar1);
+        Assertions.assertEquals(car2, fetchedCar2);
+    }
 //
 //    @Test
 //    public void should_return_null_when_fetch_given_parking_lot_with_parked_car_and_wrong_ticket() {
 //        ParkingLot parkingLot = new ParkingLot();
+//        Car car1 = new Car("123456");
+//        Car car2 = new Car("234567");
+//        Ticket ticket = new Ticket(2, car2, parkingLot);
+//        parkingLot.park(car1);
 //
-//        Car fetchedCar = parkingLot.fetch(null);
+//        Car fetchedCar = parkingLot.fetch(ticket);
 //
 //        Assertions.assertNull(fetchedCar);
 //    }
