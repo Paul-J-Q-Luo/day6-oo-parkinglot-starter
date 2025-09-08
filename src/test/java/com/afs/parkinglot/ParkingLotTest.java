@@ -189,4 +189,18 @@ public class ParkingLotTest {
 
         assertEquals(car, fetchedCar);
     }
+
+    @Test
+    void should_not_fetch_a_car_when_given_an_invalid_ticket() {
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(List.of(parkingLot1, parkingLot2));
+        Car car = new Car("123456");
+        parkingBoy.park(car);
+        Ticket invalidTicket = new Ticket(999, new Car("234567"), new ParkingLot(1));
+
+        Car fetchedCar = parkingBoy.fetch(invalidTicket);
+
+        assertNull(fetchedCar);
+    }
 }
