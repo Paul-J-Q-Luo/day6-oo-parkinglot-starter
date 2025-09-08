@@ -8,8 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -27,7 +26,7 @@ public class ParkingLotTest {
 
         Ticket ticket = parkingLot.park(car);
 
-        Assertions.assertEquals(expectTicket, ticket);
+        assertEquals(expectTicket, ticket);
     }
 
     @Test
@@ -39,7 +38,7 @@ public class ParkingLotTest {
 
         Car fetchedCar = parkingLot.fetch(ticket);
 
-        Assertions.assertEquals(car, fetchedCar);
+        assertEquals(car, fetchedCar);
     }
 
     @Test
@@ -53,8 +52,8 @@ public class ParkingLotTest {
         Car fetchedCar1 = parkingLot.fetch(ticket1);
         Car fetchedCar2 = parkingLot.fetch(ticket2);
 
-        Assertions.assertEquals(car1, fetchedCar1);
-        Assertions.assertEquals(car2, fetchedCar2);
+        assertEquals(car1, fetchedCar1);
+        assertEquals(car2, fetchedCar2);
     }
 
     @Test
@@ -162,5 +161,19 @@ public class ParkingLotTest {
         assertNotNull(ticket);
         assertNotNull(parkingLot1.fetch(ticket));
         assertNull(parkingLot2.fetch(ticket));
+    }
+
+    @Test
+    void should_park_a_car_to_the_second_parking_lot_when_the_first_parking_lot_is_full() {
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(List.of(parkingLot1, parkingLot2));
+        parkingBoy.park(new Car("123456"));
+        Car car = new Car("234567");
+
+        Ticket ticket = parkingBoy.park(car);
+
+        assertNotNull(ticket);
+        assertEquals(parkingLot2, ticket.getParkingLot());
     }
 }
